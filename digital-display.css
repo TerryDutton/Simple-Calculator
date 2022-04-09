@@ -1,0 +1,115 @@
+:root {
+    --lcd-color-off: black;
+    --lcd-color-on: black;
+
+    --lcd-length-vertical: 1em;
+    --lcd-length-horizontal: 0.67em;
+    --lcd-thickness: 0.25em;
+    --decimal-point-side-length: var(--lcd-thickness);
+    --decimal-point-lr-margin: 0.05em;
+    --square-side-diagonal-ratio: 1.414;
+
+    --lcd-thickness-half: calc(var(--lcd-thickness) / 2);
+    --lcd-negative-margin: calc(-1 * var(--lcd-thickness-half));
+    --lcd-tip-side-length: calc(var(--lcd-thickness) / var(--square-side-diagonal-ratio));
+    --lcd-tip-transform-positive: calc(var(--lcd-thickness) / 4);
+    --lcd-tip-transform-negative: calc(-1 * var(--lcd-tip-transform-positive));
+}
+
+.digital-display {
+    --space-equal-to-decimal-point: calc(var(--decimal-point-side-length) + calc(2 * var(--decimal-point-lr-margin)));
+    display: flex;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 20px 20px 20px calc(20px + var(--space-equal-to-decimal-point));
+}
+
+.digit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.digit-section {
+    display: flex;
+    align-items: flex-start;
+    min-height: var(--lcd-thickness);
+}
+
+.lcd-segment {
+    display: flex;
+    align-items: center;
+}
+
+.lcd-segment.vertical {
+    flex-direction: column;
+    transform: translateY(var(--lcd-thickness-half));
+}
+
+.lcd-segment.vertical.right {
+    margin-left: var(--lcd-negative-margin);
+}
+
+.lcd-segment.vertical.left {
+    margin-right: var(--lcd-negative-margin);
+}
+
+.lcd {
+    background-color: var(--lcd-color-off);
+}
+
+.lcd.vertical {
+    width:  var(--lcd-thickness);
+    height: var(--lcd-length-vertical);
+}
+
+.lcd.horizontal {
+    width:  var(--lcd-length-horizontal);
+    height: var(--lcd-thickness);
+}
+
+.lcd.tip {
+    height: var(--lcd-tip-side-length);
+    width:  var(--lcd-tip-side-length);
+}
+
+.lcd.tip.top {
+    transform: rotate(45deg) translate(var(--lcd-tip-transform-positive), var(--lcd-tip-transform-positive));
+}
+
+.lcd.tip.bottom {
+    transform: rotate(45deg) translate(var(--lcd-tip-transform-negative), var(--lcd-tip-transform-negative));
+}
+
+.lcd.tip.left {
+    transform: rotate(45deg) translate(var(--lcd-tip-transform-positive), var(--lcd-tip-transform-negative));
+}
+
+.lcd.tip.right {
+    transform: rotate(45deg) translate(var(--lcd-tip-transform-negative), var(--lcd-tip-transform-positive));
+}
+
+.lcd.decimal-point {
+    width:  var(--decimal-point-side-length);
+    height: var(--decimal-point-side-length);
+    align-self: flex-end;
+    margin: 0 var(--decimal-point-lr-margin);
+}
+
+.digit[data-character="0"] .is-0 .lcd,
+.digit[data-character="1"] .is-1 .lcd,
+.digit[data-character="2"] .is-2 .lcd,
+.digit[data-character="3"] .is-3 .lcd,
+.digit[data-character="4"] .is-4 .lcd,
+.digit[data-character="5"] .is-5 .lcd,
+.digit[data-character="6"] .is-6 .lcd,
+.digit[data-character="7"] .is-7 .lcd,
+.digit[data-character="8"] .is-8 .lcd,
+.digit[data-character="9"] .is-9 .lcd,
+.digit[data-character="E"] .is-E .lcd,
+.digit[data-character="r"] .is-r .lcd,
+.digit[data-character="o"] .is-o .lcd,
+.lcd.decimal-point[data-active] {
+    background-color: var(--lcd-color-on);
+}
