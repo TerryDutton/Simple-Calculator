@@ -1,1 +1,1 @@
-A simple calculator with a seven-segment digital display. Written as part of the Odin Project to demonstrate abilities in HTML, CSS< and JacaScript.
+A simple calculator with a seven-segment digital display. Written as part of the Odin Project to demonstrate abilities in HTML, CSS, and JavaScript.
