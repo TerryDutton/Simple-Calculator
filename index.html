@@ -9,6 +9,7 @@
         <script src="./script.js" defer></script>
         <title>Calculator</title>
     </head>
+    
     <template id="digit-template">
         <div class="digit">
             <div class="digit-section top">
@@ -58,9 +59,36 @@
             </div>
         </div>
     </template>
+    
     <template id="decimal-point-template">
         <div class="lcd decimal-point"></div>
     </template>
+
+    <template id="operator-template">
+        <div class="operator">
+            <div class="lcd-segment horizontal is-plus is-minus is-divide">
+                <div class="lcd tip left"></div>
+                <div class="lcd horizontal"></div>
+                <div class="lcd tip right"></div>
+            </div>
+            <div class="lcd-segment vertical is-plus">
+                <div class="lcd tip top is-divide"></div>
+                <div class="lcd horizontal"></div>
+                <div class="lcd tip bottom is-divide"></div>
+            </div>
+            <div class="lcd-segment diagonal left is-multiply">
+                <div class="lcd tip left"></div>
+                <div class="lcd horizontal"></div>
+                <div class="lcd tip right"></div>
+            </div>
+            <div class="lcd-segment diagonal right is-multiply">
+                <div class="lcd tip left"></div>
+                <div class="lcd horizontal"></div>
+                <div class="lcd tip right"></div>
+            </div>
+        </div>
+    </template>
+
     <body>
         <div id="content">
             <div id="calculator">
