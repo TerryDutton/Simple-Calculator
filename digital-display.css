@@ -1,5 +1,5 @@
 :root {
-    --lcd-color-off: black;
+    --lcd-color-off: transparent;
     --lcd-color-on: black;
 
     --lcd-length-vertical: 1em;

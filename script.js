@@ -1,6 +1,10 @@
-const display   = document.getElementById('digit-display');
-const baseDigit = document.getElementById('digit-template').content.firstElementChild;
-const basePoint = document.getElementById('decimal-point-template').content.firstElementChild;        
+const display       = document.getElementById('digit-display');
+const baseDigit     = document.getElementById('digit-template').content.firstElementChild;
+const basePoint     = document.getElementById('decimal-point-template').content.firstElementChild; 
+const decimalBtn    = document.getElementById('decimal-btn');
+const clearEntryBtn = document.getElementById('clear-entry');
+const clearAllBtn   = document.getElementById('clear');
+const numberBtns    = document.querySelectorAll('button.number');      
 
 const displayLength = 10;
 const digits = Array.from({length: displayLength}, _ => baseDigit.cloneNode(true));
@@ -28,3 +32,37 @@ function setDecimalPoint(value){
         else point.removeAttribute(attr);
     });
 }
+
+let displayedCharacters = "";
+addCharacterToDisplay("0");
+
+function addCharacterToDisplay(char){
+    if(displayedCharacters === "0" && char !== ".") displayedCharacters = char;
+    else displayedCharacters += char;
+    updateDisplay();
+}
+
+function deleteLastCharacter(){
+    const slice = displayedCharacters.slice(0, -1);
+    if(slice === '') displayedCharacters = "0";
+    else displayedCharacters = slice;
+    updateDisplay();
+}
+
+function updateDisplay(){
+    setCharacters(displayedCharacters);
+    setDecimalPoint(displayedCharacters);
+}
+
+numberBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+        addCharacterToDisplay(e.target.textContent);
+    });
+});
+
+decimalBtn.addEventListener('click', () => {
+    if(displayedCharacters.includes(".")) return;
+    addCharacterToDisplay(".");
+});
+
+clearEntryBtn.addEventListener('click', deleteLastCharacter);
