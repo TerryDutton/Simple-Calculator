@@ -1,4 +1,4 @@
-const display   = document.getElementById('display');
+const display   = document.getElementById('digit-display');
 const baseDigit = document.getElementById('digit-template').content.firstElementChild;
 const basePoint = document.getElementById('decimal-point-template').content.firstElementChild;        
 

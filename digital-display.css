@@ -16,13 +16,24 @@
     --lcd-tip-transform-negative: calc(-1 * var(--lcd-tip-transform-positive));
 }
 
-.digital-display {
+#display-wrapper {
+    position: relative;
+}
+
+#digit-display {
     --space-equal-to-decimal-point: calc(var(--decimal-point-side-length) + calc(2 * var(--decimal-point-lr-margin)));
     display: flex;
     background-color: white;
     border: 1px solid black;
     border-radius: 5px;
     padding: 20px 20px 20px calc(20px + var(--space-equal-to-decimal-point));
+}
+
+#operator-display {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 0.8em;
 }
 
 .digit {

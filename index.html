@@ -64,35 +64,13 @@
         <div class="lcd decimal-point"></div>
     </template>
 
-    <template id="operator-template">
-        <div class="operator">
-            <div class="lcd-segment horizontal is-plus is-minus is-divide">
-                <div class="lcd tip left"></div>
-                <div class="lcd horizontal"></div>
-                <div class="lcd tip right"></div>
-            </div>
-            <div class="lcd-segment vertical is-plus">
-                <div class="lcd tip top is-divide"></div>
-                <div class="lcd horizontal"></div>
-                <div class="lcd tip bottom is-divide"></div>
-            </div>
-            <div class="lcd-segment diagonal left is-multiply">
-                <div class="lcd tip left"></div>
-                <div class="lcd horizontal"></div>
-                <div class="lcd tip right"></div>
-            </div>
-            <div class="lcd-segment diagonal right is-multiply">
-                <div class="lcd tip left"></div>
-                <div class="lcd horizontal"></div>
-                <div class="lcd tip right"></div>
-            </div>
-        </div>
-    </template>
-
     <body>
         <div id="content">
             <div id="calculator">
-                <div id="display" class="digital-display"></div>
+                <div id="display-wrapper">
+                    <div id="digit-display"></div>
+                    <span id="operator-display"></span>
+                </div>
                 <div id="buttons">
                     <button id="clear">C</button>
                     <button id="clear-entry">CE</button>
