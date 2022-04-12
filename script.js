@@ -9,10 +9,11 @@ const clearAllBtn     = document.getElementById('clear');
 const numberBtns      = document.querySelectorAll('button.number');
 const operatorBtns    = document.querySelectorAll('button.operator');
 
-const displayLength = 10;
+const displayLength   = 10;
+const maxDisplayValue = Math.pow(10, displayLength);
 const digits = Array.from({length: displayLength}, () => baseDigit.cloneNode(true));
 const points = Array.from({length: displayLength}, () => basePoint.cloneNode(true));
-const calcFunctions = {
+const calculatingFunctions = {
     "+": (a,b) => a + b,
     "-": (a,b) => a - b,
     "x": (a,b) => a * b,
@@ -21,6 +22,7 @@ const calcFunctions = {
 
 let isResetDisplayOnNextInput = false;
 let lastInputWasOperator = false;
+let hasJustPressedEquals = false;
 let firstOperand = null;
 let secondOperand = null;
 let displayedValue = "0";
@@ -43,6 +45,7 @@ operatorBtns.forEach(btn => {
 
 clearEntryBtn.addEventListener('click', deleteCharacter);
 decimalPointBtn.addEventListener('click', addDecimalPointToDisplay);
+equalsBtn.addEventListener('click', doCalculation);
 
 function setDisplayedCharacters(value){
     const valueToSet = value.replace(/\./, "");
@@ -66,14 +69,12 @@ function updateDisplay(){
     setDisplayedDecimalPoints(displayedValue);
 }
 
-function calculate(a, b, operator){
-    if (calcFunctions[operator]) return calcFunctions[operator](a,b);
-    else throw new TypeError(`Invalid operator "${operator}".`);
-}
-
 function setOperator(operator){
+    if(firstOperand === null) firstOperand = getDisplayedValueAsNumber();
+    else if(!hasJustPressedEquals) doCalculation();
     operatorDisplay.textContent = operator;
     isResetDisplayOnNextInput = true;
+    hasJustPressedEquals = false;
 }
 
 function addCharacterToDisplay(char){
@@ -99,12 +100,13 @@ function addDecimalPointToDisplay(){
 
 function deleteCharacter(){
     displayedValue = displayedValue.slice(0, -1);
-    if(!displayedValue) displayedValue = "0";
+    if(displayedValue === '') displayedValue = "0";
     updateDisplay();
 }
 
 function clearAll(){
     isResetDisplayOnNextInput = false;
+    hasJustPressedEquals = false;
     lastInputWasOperator = false;
     firstOperand = null;
     secondOperand = null;
@@ -112,12 +114,24 @@ function clearAll(){
     updateDisplay();
 }
 
-/* What are the ways I want this to behave?
-1. When you input a number, you input the digits one at a time and they appear in sequence.
-2. When you press an operator button for the first time, it sets an operator.
-3. When you enter a second number, it replaces the first one.
-4. When you press equals, it does the set operation on the first and second numbers.
-5. When you press equals again, it does the same operation on the displayed number with the same second operand. */
+function doCalculation(){
+    const operator = operatorDisplay.textContent;
+    if (!hasJustPressedEquals) secondOperand = getDisplayedValueAsNumber();
+    if (firstOperand === null || secondOperand === null || !operator) return;
 
-/* So what we're looking at here is... input to the first operand. Then after the first operator, 
-all subsequent inputs are saved to the second operand, and all subsequent  */
+    const answer = calculate(firstOperand, secondOperand, operator);
+    displayedValue = `${answer}`;
+    firstOperand = answer;
+    hasJustPressedEquals = true;
+    updateDisplay();
+}
+
+function getDisplayedValueAsNumber(){
+    return Number(displayedValue);
+}
+
+function calculate(a, b, operator){
+    const calculatingFunction = calculatingFunctions[operator];
+    if(!calculatingFunction) return NaN;
+    return calculatingFunction(a, b);
+}
