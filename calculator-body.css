@@ -31,6 +31,6 @@ button {
     flex-grow: 1;
 }
 
-#clear, #clear-entry {
+#clear {
     grid-column: span 2;
 }
